@@ -10,7 +10,7 @@ public class TimerManager : MonoBehaviour
 
     private bool isTimeRemaining = true;
 
-    private TextMeshPro timeText;
+    public TextMeshPro timeText;
 
     // Start is called before the first frame update
     void Start()
