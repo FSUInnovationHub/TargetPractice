@@ -10,10 +10,16 @@ public class ArrowSpawner : MonoBehaviour
     public GameObject arrowNotch;
 
     private XRGrabInteractable bow;
-    private bool isArrowReady = false;
+    private bool isArrowReady = true;
 
-    private GameObject currentArrow;
+    public GameObject currentArrow;
     private GameObject nextArrow;
+
+    public DebugCube debug;
+
+    public bool debugMode = false;
+
+    private float stringDistance;
 
     private void Start()
     {
@@ -28,18 +34,28 @@ public class ArrowSpawner : MonoBehaviour
 
     private void Update()
     {
-        if(isArrowReady == false)
+        if((isArrowReady == false && bow.isSelected) || debugMode == true)
         {
+            debugMode = false;
             isArrowReady = true;
-            currentArrow = Instantiate(arrow, arrowNotch.transform);
+            //currentArrow = Instantiate(arrow, this.transform);
 
-
-            //StartCoroutine("DelayedSpawn");
+            StartCoroutine("DelayedSpawn");
         }
         if(!bow.isSelected)
         {
-            Destroy(currentArrow);
-            NotchEmpty();
+            //Destroy(currentArrow);
+            //NotchEmpty();
+            
+        }
+    }
+
+    public void UpdateArrow(float pullDistance)
+    {
+        if(isArrowReady== true)
+        {
+            currentArrow.transform.localPosition = new Vector3(0, 0, 0 + pullDistance);
+
         }
     }
 
@@ -52,7 +68,10 @@ public class ArrowSpawner : MonoBehaviour
     {
         isArrowReady = true;
         yield return new WaitForSeconds(1f);
-        currentArrow = Instantiate(arrow, arrowNotch.transform);
+        currentArrow = Instantiate(arrow, this.gameObject.transform);
+        new Vector3(arrowNotch.transform.position.x, arrowNotch.transform.position.y, arrowNotch.transform.position.z - 0.22f);
+        Debug.Log("Arrow is ready");
+        currentArrow.transform.position = arrowNotch.transform.position;
     }
 
 

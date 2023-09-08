@@ -14,7 +14,7 @@ public class PullString : XRBaseInteractable
     public Transform endPoint;
 
     public GameObject arrowNotch;
-    public GameObject arrow;
+    public ArrowSpawner arrowSpawner;
 
     public float pullDistance;
 
@@ -30,6 +30,7 @@ public class PullString : XRBaseInteractable
     void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
+        arrowSpawner = this.GetComponentInParent<ArrowSpawner>();
     }
 
     public void SetPullInteractorObject(SelectEnterEventArgs args)
@@ -42,8 +43,7 @@ public class PullString : XRBaseInteractable
         onStringReleased.Raise(pullDistance);
         pullingInteractor = null;
 
-        pullDistance = -0.05f;
-        arrowNotch.transform.localPosition = new Vector3(arrowNotch.transform.localPosition.x, arrowNotch.transform.localPosition.y, 0f);
+        pullDistance = 0f;
 
         UpdateString();
     }
@@ -56,7 +56,6 @@ public class PullString : XRBaseInteractable
             if(isSelected)
             {
                 pullPosition = pullingInteractor.transform.position;
-                //arrow.transform.position = new Vector3(arrow.transform.position.x, arrow.transform.position.y, pullPosition.z + 0.25f);
 
                 pullDistance = CalculatePull(pullPosition);
 
@@ -65,7 +64,7 @@ public class PullString : XRBaseInteractable
         }
     }
 
-    private float CalculatePull(Vector3 pullPosition)
+    public float CalculatePull(Vector3 pullPosition)
     {
         Vector3 pullDirection = pullPosition - startPoint.position;
         Vector3 targetDirection = endPoint.position - startPoint.position;
@@ -76,10 +75,13 @@ public class PullString : XRBaseInteractable
         return Mathf.Clamp(pullValue, 0, 1);
     }
 
-    private void UpdateString()
+    public void UpdateString()
     {
         Vector3 linePosition = Vector3.forward * Mathf.Lerp(startPoint.transform.localPosition.z, endPoint.transform.localPosition.z, pullDistance);
         lineRenderer.SetPosition(1, linePosition);
+
+
+        arrowSpawner.UpdateArrow(linePosition.z);
 
     }
 
