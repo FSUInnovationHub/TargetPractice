@@ -49,7 +49,17 @@ public class StringInteraction : XRBaseInteractable
             Vector3 pullPosition = interactor.transform.position;
             stringTension = CalculatePull(pullPosition);
 
+            Haptics();
             UpdateString();
+        }
+    }
+
+    private void Haptics()
+    {
+        if (interactor != null)
+        {
+            ActionBasedController controller = interactor.transform.GetComponent<ActionBasedController>();
+            controller.SendHapticImpulse(stringTension, 0.1f);
         }
     }
 
