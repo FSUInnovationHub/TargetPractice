@@ -1,25 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
-public class TargetCollision : MonoBehaviour
+public class TargetController : MonoBehaviour
 {
     private Vector3 startPos;
     private int arrayPos;
-
-    private void Awake()
-    {
-        
-    }
-
 
     public void InitiateTarget(Vector3[] targetPosArray, int stage)
     {
         startPos = this.transform.localPosition;
         arrayPos = stage;
 
-        if(arrayPos == targetPosArray.Length - 1 || arrayPos == targetPosArray.Length)
+        if (arrayPos == targetPosArray.Length - 1 || arrayPos == targetPosArray.Length)
         {
             arrayPos = -1;
         }
@@ -40,12 +33,12 @@ public class TargetCollision : MonoBehaviour
         }
 
         transform.localPosition = targetPosArray[arrayPos];
-        //arrayPos += 1;
         InitiateTarget(targetPosArray, arrayPos);
 
     }
 
-
-
-
+    public void TargetHit()
+    {
+        StopAllCoroutines();
+    }
 }
