@@ -72,13 +72,15 @@ public class ArrowPhysics : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.transform.TryGetComponent(out Rigidbody body) && collision.transform.TryGetComponent(out ArrowSpawner arrowSpawner) == false)
+        if(collision.transform.TryGetComponent(out Rigidbody body) && collision.transform.TryGetComponent(out TargetController targetController))
         {
             rb.interpolation = RigidbodyInterpolation.None;
             transform.parent = collision.transform;
 
             body.isKinematic = false;
             body.AddForce(rb.velocity, ForceMode.Impulse);
+            targetController.TargetHit();
+
             Stop();
         }
         
