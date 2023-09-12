@@ -40,5 +40,12 @@ public class TargetController : MonoBehaviour
     public void TargetHit()
     {
         StopAllCoroutines();
+        StartCoroutine(DestroyCountdown());
+    }
+
+    private IEnumerator DestroyCountdown()
+    {
+        yield return new WaitForSeconds(5);
+        Destroy(this.gameObject);
     }
 }
