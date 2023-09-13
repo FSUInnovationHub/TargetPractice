@@ -16,7 +16,6 @@ public class ArrowManager : MonoBehaviour
     void Start()
     {
         bow = GetComponentInParent<XRGrabInteractable>();
-
     }
 
     // Update is called once per frame

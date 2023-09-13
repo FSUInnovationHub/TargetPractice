@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Assets.Scripts.Events;
+using System;
 
 public class TimerManager : MonoBehaviour
 {
@@ -9,8 +11,12 @@ public class TimerManager : MonoBehaviour
     public float timeRemaining; //in seconds.
 
     private bool isTimeRemaining = true;
+    private bool isTimerPaused = true;
 
     public TextMeshPro timeText;
+    public TextMeshPro anounncerText;
+
+    public GameEvent onTimeRunOut;
 
     // Start is called before the first frame update
     void Start()
@@ -18,11 +24,35 @@ public class TimerManager : MonoBehaviour
         
     }
 
+    public void ChangeTimerPause()
+    {
+        isTimerPaused = !isTimerPaused;
+
+        if(isTimerPaused == true)
+        {
+            anounncerText.text = "Best Time";
+            TimerCountdown(PlayerPrefs.GetInt("bestTime"));
+        }
+        else
+        {
+            anounncerText.text = "Time Left";
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        
-        if(isTimeRemaining)
+        if (isTimerPaused == false)
+        {
+            ShowTime();
+        }
+    }
+
+
+
+    private void ShowTime()
+    {
+        if (isTimeRemaining)
         {
             timeRemaining -= Time.deltaTime; // The Update() function is called every frame. But we don't the timer to work in frames it needs to work in seconds.
                                              // Time.deltaTime measures the time between each frame. It essentially lets us measure how much time has passed in seconds.
@@ -31,8 +61,9 @@ public class TimerManager : MonoBehaviour
         }
         else
         {
-            isTimeRemaining = false; //timer will stop running when time = 0
-            timeRemaining = 0;
+            onTimeRunOut.Raise();
+
+            timeText.text = "0:00";
         }
 
     }
@@ -54,6 +85,24 @@ public class TimerManager : MonoBehaviour
         {
             timeText.text = minutes + ":0" + seconds; 
         }
+
+        if (timeLeft == 0)
+        {
+            isTimeRemaining = false;
+        }
         
     }
+
+    public void CheckHighScore() //Called when all targets are knocked down.
+    {
+        int bestTime = PlayerPrefs.GetInt("bestTime");
+        if (bestTime > timeRemaining)
+        {
+            PlayerPrefs.SetInt("bestTime", (int)timeRemaining);
+            TimerCountdown(timeRemaining);
+            anounncerText.text = "Best Time";
+        }
+    }
+
+
 }
