@@ -148,3 +148,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ac25caef2790f140ae23ba90bff6003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnGameStart: {fileID: 11400000, guid: 4c4605a5125ffa54597222d005abb782, type: 2}
