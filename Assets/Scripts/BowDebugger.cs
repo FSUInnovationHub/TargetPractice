@@ -12,7 +12,6 @@ public class BowDebugger : MonoBehaviour
     bool bKeyPressed = false;
 
     public GameObject bow;
-    public GameObject arrow;
     public GameObject bowString;
 
     private ArrowSpawner arrowSpawner;

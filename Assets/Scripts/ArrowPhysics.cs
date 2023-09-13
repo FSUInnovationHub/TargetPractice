@@ -41,7 +41,7 @@ public class ArrowPhysics : MonoBehaviour
             inAir = true;
             SetPhysics(true);
 
-            Vector3 force = transform.forward * speed;
+            Vector3 force = transform.right * speed;
             rb.AddForce(force, ForceMode.Impulse);
 
             StartCoroutine(RotateWithVelocity());

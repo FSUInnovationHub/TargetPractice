@@ -53,7 +53,8 @@ public class PullString : XRBaseInteractable
         base.ProcessInteractable(updatePhase);
         if(updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic)
         {
-            if(isSelected)
+
+            if(pullingInteractor != null)
             {
                 pullPosition = pullingInteractor.transform.position;
 
@@ -62,6 +63,7 @@ public class PullString : XRBaseInteractable
                 Haptics();
                 UpdateString();
             }
+                
         }
     }
 
@@ -87,7 +89,7 @@ public class PullString : XRBaseInteractable
 
     public void UpdateString()
     {
-        Vector3 linePosition = Vector3.forward * Mathf.Lerp(startPoint.transform.localPosition.z, endPoint.transform.localPosition.z, pullDistance);
+        Vector3 linePosition = Vector3.right * Mathf.Lerp(startPoint.transform.localPosition.x, endPoint.transform.localPosition.x, pullDistance);
         lineRenderer.SetPosition(1, linePosition);
 
 
