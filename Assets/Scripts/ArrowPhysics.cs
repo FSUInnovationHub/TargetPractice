@@ -12,18 +12,14 @@ public class ArrowPhysics : MonoBehaviour
 
     private Rigidbody rb;
     private bool inAir = false;
-    private PullString pullString;
-    private ParticleSystem particalSystem;
     private TrailRenderer trailRenderer;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        particalSystem = GetComponent<ParticleSystem>();
         trailRenderer = GetComponent<TrailRenderer>();  
 
         bow = this.transform.parent.gameObject;
-        pullString = GetComponentInParent<PullString>();
     }
 
     private void Start()
@@ -52,7 +48,6 @@ public class ArrowPhysics : MonoBehaviour
 
             bow.GetComponent<ArrowSpawner>().NotchEmpty();
 
-            particalSystem.Play();
             trailRenderer.emitting = true;
 
             Destroy(this.gameObject, 5f);
@@ -92,7 +87,6 @@ public class ArrowPhysics : MonoBehaviour
     {
         inAir = false;
         SetPhysics(false);
-        particalSystem.Stop();
         trailRenderer.emitting = false;
     }
 
