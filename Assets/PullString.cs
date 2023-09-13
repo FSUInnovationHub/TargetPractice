@@ -59,8 +59,18 @@ public class PullString : XRBaseInteractable
 
                 pullDistance = CalculatePull(pullPosition);
 
+                Haptics();
                 UpdateString();
             }
+        }
+    }
+
+    private void Haptics()
+    {
+        if (pullingInteractor != null)
+        {
+            ActionBasedController controller = pullingInteractor.transform.GetComponent<ActionBasedController>();
+            controller.SendHapticImpulse(pullDistance, 0.1f);
         }
     }
 
@@ -81,7 +91,7 @@ public class PullString : XRBaseInteractable
         lineRenderer.SetPosition(1, linePosition);
 
 
-        arrowSpawner.UpdateArrow(linePosition.z);
+        arrowSpawner.UpdateArrow(pullDistance);
 
     }
 
