@@ -54,7 +54,7 @@ public class ArrowSpawner : MonoBehaviour
     {
         if(isArrowReady== true)
         {
-            currentArrow.transform.localPosition = new Vector3(0, 0, 0 + pullDistance);
+            currentArrow.transform.localPosition = new Vector3(0, 0, 0 + pullDistance); //TODO Adjust this for arrow alignment to string
 
         }
     }

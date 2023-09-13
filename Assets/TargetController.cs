@@ -5,12 +5,19 @@ using UnityEngine;
 
 public class TargetController : MonoBehaviour
 {
+    private TargetManager targetManager;
+
     private Vector3 startPos;
     private int arrayPos;
 
     private bool isInitialTarget;
 
     public GameEvent OnGameStart;
+
+    private void Awake()
+    {
+        targetManager = GetComponentInParent<TargetManager>();
+    }
 
     public void InitiateTarget(Vector3[] targetPosArray, int stage)
     {
@@ -49,16 +56,16 @@ public class TargetController : MonoBehaviour
 
     public void TargetHit()
     {
-<<<<<<< Updated upstream
         StopAllCoroutines();
-=======
         if (isInitialTarget)
         {
             OnGameStart.Raise();
+            targetManager.NextStage();
         }
+
+        targetManager.TargetHit();
 
         StopAllCoroutines();
         Destroy(this.gameObject, 3f);
->>>>>>> Stashed changes
     }
 }

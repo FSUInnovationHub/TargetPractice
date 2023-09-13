@@ -3630,6 +3630,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 614420e7f8863b84e9e5b4281b680a8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnTargetsCleared: {fileID: 11400000, guid: 406d45a1c63bccf4a8043a0c01d07f0b, type: 2}
   target: {fileID: 7808893725597001993, guid: bcdb63c90a5df24479b793a95019159f, type: 3}
 --- !u!114 &974356732
 MonoBehaviour:
