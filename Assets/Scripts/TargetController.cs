@@ -56,6 +56,7 @@ public class TargetController : MonoBehaviour
 
     public void TargetHit()
     {
+        Debug.Log("Ouch");
         StopAllCoroutines();
         if (isInitialTarget)
         {
