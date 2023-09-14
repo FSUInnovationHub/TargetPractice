@@ -26,6 +26,11 @@ public class PullString : XRBaseInteractable
 
     public DebugCube debugCube;
 
+    public AudioSource stringReleaseSoundEffect;
+    public AudioSource pullBackSoundEffect;
+
+    bool pullBackOnce = false;
+
 
 
     // Start is called before the first frame update
@@ -44,10 +49,13 @@ public class PullString : XRBaseInteractable
     {
         onStringReleased.Raise(pullDistance);
         pullingInteractor = null;
+        stringReleaseSoundEffect.Play();
 
         pullDistance = 0f;
 
         UpdateString();
+
+        pullBackOnce = false;
     }
 
     public override void ProcessInteractable(XRInteractionUpdateOrder.UpdatePhase updatePhase)
@@ -60,7 +68,7 @@ public class PullString : XRBaseInteractable
             {
                 pullPosition = pullingInteractor.transform.position;
                 
-
+                PlayPullbackSound();
                 pullDistance = CalculatePull(pullPosition);
                 debugCube.ChangeText(pullDistance.ToString());
                 //Haptics();
@@ -99,6 +107,17 @@ public class PullString : XRBaseInteractable
 
         //arrowSpawner.UpdateArrow(pullDistance);
 
+    }
+
+    public void PlayPullbackSound()
+    {
+        
+        if(pullBackOnce == false)
+        {
+            pullBackSoundEffect.Play();
+            pullBackOnce = true;
+        }
+        
     }
 
 }

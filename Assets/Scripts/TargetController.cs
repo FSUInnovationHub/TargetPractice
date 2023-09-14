@@ -6,6 +6,7 @@ using UnityEngine;
 public class TargetController : MonoBehaviour
 {
     private TargetManager targetManager;
+    private bool targetActive = true;
 
     private Vector3 startPos;
     private int arrayPos;
@@ -13,6 +14,8 @@ public class TargetController : MonoBehaviour
     private bool isInitialTarget;
 
     public GameEvent OnGameStart;
+
+    public AudioSource targetHitSoundEffect;
 
     private void Awake()
     {
@@ -56,17 +59,22 @@ public class TargetController : MonoBehaviour
 
     public void TargetHit()
     {
-        Debug.Log("Ouch");
-        StopAllCoroutines();
-        if (isInitialTarget)
+        if (targetActive == true)
         {
-            OnGameStart.Raise();
-            targetManager.NextStage();
+            targetHitSoundEffect.Play();
+            
+            StopAllCoroutines();
+            if (isInitialTarget)
+            {
+                OnGameStart.Raise();
+                //targetManager.NextStage();
+            }
+
+            targetManager.TargetHit();
+
+            StopAllCoroutines();
+            Destroy(this.gameObject, 3f);
+            targetActive = false;
         }
-
-        targetManager.TargetHit();
-
-        StopAllCoroutines();
-        Destroy(this.gameObject, 3f);
     }
 }
