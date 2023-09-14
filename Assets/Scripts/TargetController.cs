@@ -6,6 +6,7 @@ using UnityEngine;
 public class TargetController : MonoBehaviour
 {
     private TargetManager targetManager;
+    private bool targetActive = true;
 
     private Vector3 startPos;
     private int arrayPos;
@@ -13,10 +14,12 @@ public class TargetController : MonoBehaviour
     private bool isInitialTarget;
 
     public GameEvent OnGameStart;
+    private AudioSource audioSource;
 
     private void Awake()
     {
         targetManager = GetComponentInParent<TargetManager>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void InitiateTarget(Vector3[] targetPosArray, int stage)
@@ -32,7 +35,7 @@ public class TargetController : MonoBehaviour
         arrayPos++;
         StartCoroutine(MoveTarget(targetPosArray, 3));
 
-        if(targetPosArray.Length == 1)
+        if (targetPosArray.Length == 1)
         {
             isInitialTarget = true;
         }
@@ -56,17 +59,20 @@ public class TargetController : MonoBehaviour
 
     public void TargetHit()
     {
-        Debug.Log("Ouch");
-        StopAllCoroutines();
-        if (isInitialTarget)
+        if (targetActive == true)
         {
-            OnGameStart.Raise();
-            targetManager.NextStage();
+            StopAllCoroutines();
+            if (isInitialTarget)
+            {
+                OnGameStart.Raise();
+                //targetManager.NextStage();
+            }
+            audioSource.Play();
+            targetManager.TargetHit();
+
+            StopAllCoroutines();
+            Destroy(this.gameObject, 3f);
+            targetActive = false;
         }
-
-        targetManager.TargetHit();
-
-        StopAllCoroutines();
-        Destroy(this.gameObject, 3f);
     }
 }

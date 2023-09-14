@@ -13,11 +13,13 @@ public class ArrowPhysics : MonoBehaviour
     private Rigidbody rb;
     private bool inAir = false;
     private TrailRenderer trailRenderer;
+    private AudioSource audioSource;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         trailRenderer = GetComponent<TrailRenderer>();  
+        audioSource = GetComponent<AudioSource>();
 
         bow = this.transform.parent.gameObject;
     }
@@ -40,6 +42,7 @@ public class ArrowPhysics : MonoBehaviour
             this.gameObject.transform.parent = null;
             inAir = true;
             SetPhysics(true);
+            audioSource.Play();
 
             Vector3 force = transform.forward * speed;
             rb.AddForce(force, ForceMode.Impulse);

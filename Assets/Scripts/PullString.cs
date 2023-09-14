@@ -26,6 +26,9 @@ public class PullString : XRBaseInteractable
 
     public DebugCube debugCube;
 
+    private AudioSource audioSource;
+    private bool isDrawn = false;
+
 
 
     // Start is called before the first frame update
@@ -33,6 +36,7 @@ public class PullString : XRBaseInteractable
     {
         lineRenderer = GetComponent<LineRenderer>();
         arrowSpawner = this.GetComponentInParent<ArrowSpawner>();
+        audioSource = this.GetComponentInParent<AudioSource>();
     }
 
     public void SetPullInteractorObject(SelectEnterEventArgs args)
@@ -46,6 +50,7 @@ public class PullString : XRBaseInteractable
         pullingInteractor = null;
 
         pullDistance = 0f;
+        isDrawn = false;
 
         UpdateString();
     }
@@ -59,8 +64,12 @@ public class PullString : XRBaseInteractable
             if(pullingInteractor != null)
             {
                 pullPosition = pullingInteractor.transform.position;
-                
 
+                if (isDrawn == false)
+                {
+                    isDrawn = true;
+                    audioSource.Play();
+                }
                 pullDistance = CalculatePull(pullPosition);
                 debugCube.ChangeText(pullDistance.ToString());
                 //Haptics();
