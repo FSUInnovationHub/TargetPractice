@@ -10,7 +10,7 @@ public class ArrowSpawner : MonoBehaviour
     public GameObject arrowNotch;
 
     private XRGrabInteractable bow;
-    private bool isArrowReady = true;
+    private bool isArrowReady = false;
 
     public GameObject currentArrow;
     private GameObject nextArrow;
@@ -69,7 +69,8 @@ public class ArrowSpawner : MonoBehaviour
         isArrowReady = true;
         yield return new WaitForSeconds(1f);
         currentArrow = Instantiate(arrow, this.gameObject.transform);
-        new Vector3(arrowNotch.transform.position.x, arrowNotch.transform.position.y, arrowNotch.transform.position.z - 0.22f);
+        currentArrow.transform.position = new Vector3(arrowNotch.transform.position.x, arrowNotch.transform.position.y, arrowNotch.transform.position.z - 0.22f);
+        currentArrow.transform.rotation = arrowNotch.transform.rotation;
         Debug.Log("Arrow is ready");
         currentArrow.transform.position = arrowNotch.transform.position;
     }
