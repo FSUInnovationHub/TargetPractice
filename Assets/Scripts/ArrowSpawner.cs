@@ -54,7 +54,7 @@ public class ArrowSpawner : MonoBehaviour
     {
         if(isArrowReady== true)
         {
-            currentArrow.transform.localPosition = new Vector3(0, 0, 0 + pullDistance); //TODO Adjust this for arrow alignment to string
+            currentArrow.transform.localPosition = new Vector3(0 + (pullDistance/3), 0, 0); //TODO Adjust this for arrow alignment to string
 
         }
     }
@@ -71,6 +71,8 @@ public class ArrowSpawner : MonoBehaviour
         currentArrow = Instantiate(arrow, this.gameObject.transform);
         currentArrow.transform.position = new Vector3(arrowNotch.transform.position.x, arrowNotch.transform.position.y, arrowNotch.transform.position.z - 0.22f);
         currentArrow.transform.rotation = arrowNotch.transform.rotation;
+
+        currentArrow.transform.SetParent(arrowNotch.transform, true);
         Debug.Log("Arrow is ready");
         currentArrow.transform.position = arrowNotch.transform.position;
     }

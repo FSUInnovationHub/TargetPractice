@@ -92,12 +92,14 @@ public class PullString : XRBaseInteractable
 
     public void UpdateString()
     {
-        Vector3 linePosition = Vector3.right * Mathf.Lerp(startPoint.transform.localPosition.x, endPoint.transform.localPosition.x, pullDistance);
-        debugCube.ChangeText2(pullDistance.ToString());
+        Vector3 linePosition = Vector3.right * Mathf.Lerp(startPoint.transform.localPosition.x, endPoint.transform.localPosition.x, pullDistance) + new Vector3(0,0, -0.1f);
+        debugCube.ChangeText2(linePosition.x.ToString());
         lineRenderer.SetPosition(1, linePosition);
 
+        //arrowNotch.transform.position = Vector3.left * (arrowNotch.transform.position.x - linePosition.x);
 
-        //arrowSpawner.UpdateArrow(pullDistance);
+
+        //arrowSpawner.UpdateArrow(linePosition.x);
 
     }
 
