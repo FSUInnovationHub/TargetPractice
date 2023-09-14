@@ -49,9 +49,10 @@ public class BowDebugger : MonoBehaviour
         if(Keyboard.current.bKey.isPressed && bKeyPressed == false)
         {
             bKeyPressed = true;
-            pullString.pullDistance = 1;
+            pullString.pullDistance += 0.1f;
             pullString.UpdateString();
-             
+            StartCoroutine("KeyDelay");
+
         }
 
     }
