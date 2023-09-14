@@ -92,7 +92,7 @@ public class PullString : XRBaseInteractable
 
     public void UpdateString()
     {
-        Vector3 linePosition = Vector3.right * Mathf.Lerp(startPoint.transform.localPosition.x, endPoint.transform.localPosition.x, pullDistance);
+        Vector3 linePosition = Vector3.right * Mathf.Lerp(startPoint.transform.localPosition.x, endPoint.transform.localPosition.x, pullDistance) + new Vector3(0,0,-0.1f);
         debugCube.ChangeText2(pullDistance.ToString());
         lineRenderer.SetPosition(1, linePosition);
 
