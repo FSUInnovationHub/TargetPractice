@@ -37,7 +37,7 @@ public class BowDebugger : MonoBehaviour
         {
             spacebarpressed = true;
 
-            pullString.CalculatePull(new Vector3(0, 0, -10f));
+            pullString.CalculatePull(new Vector3(-10f, 0, -10f));
 
             pullString.ReleaseString();
 
@@ -49,6 +49,7 @@ public class BowDebugger : MonoBehaviour
         if(Keyboard.current.bKey.isPressed && bKeyPressed == false)
         {
             bKeyPressed = true;
+            pullString.pullDistance = 1;
             pullString.UpdateString();
              
         }

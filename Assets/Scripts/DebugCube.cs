@@ -1,29 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class DebugCube : MonoBehaviour
 {
-    private Mesh mesh;
-    private Material material;
+    public TextMeshPro text;
+    public TextMeshPro text2;
 
+    
 
-
-    // Start is called before the first frame update
-    void Start()
+    public void ChangeText(string debug)
     {
-        material = GetComponent<Material>();
+        text.text = debug;
+        Debug.Log("testing");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ChangeText2(string debug2)
     {
-        
-    }
-
-    public void ChangeColor(Color color)
-    {
-        material.color = color;
+        text2.text = debug2;
     }
 
 

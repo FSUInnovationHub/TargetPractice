@@ -24,6 +24,8 @@ public class PullString : XRBaseInteractable
 
     public Vector3 pullPosition;
 
+    public DebugCube debugCube;
+
 
 
     // Start is called before the first frame update
@@ -57,17 +59,18 @@ public class PullString : XRBaseInteractable
             if(pullingInteractor != null)
             {
                 pullPosition = pullingInteractor.transform.position;
+                
 
                 pullDistance = CalculatePull(pullPosition);
-
-                Haptics();
+                debugCube.ChangeText(pullDistance.ToString());
+                //Haptics();
                 UpdateString();
             }
                 
         }
     }
 
-    private void Haptics()
+    private void Haptics() // TODO: I believe this is throwing errors during playmode. Not sure why.
     {
         if (pullingInteractor != null)
         {
@@ -90,10 +93,11 @@ public class PullString : XRBaseInteractable
     public void UpdateString()
     {
         Vector3 linePosition = Vector3.right * Mathf.Lerp(startPoint.transform.localPosition.x, endPoint.transform.localPosition.x, pullDistance);
+        debugCube.ChangeText2(pullDistance.ToString());
         lineRenderer.SetPosition(1, linePosition);
 
 
-        arrowSpawner.UpdateArrow(pullDistance);
+        //arrowSpawner.UpdateArrow(pullDistance);
 
     }
 

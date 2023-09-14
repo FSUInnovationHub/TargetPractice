@@ -41,7 +41,7 @@ public class ArrowPhysics : MonoBehaviour
             inAir = true;
             SetPhysics(true);
 
-            Vector3 force = transform.right * speed;
+            Vector3 force = transform.forward * speed;
             rb.AddForce(force, ForceMode.Impulse);
 
             StartCoroutine(RotateWithVelocity());
@@ -69,8 +69,10 @@ public class ArrowPhysics : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.transform.TryGetComponent(out Rigidbody body) && collision.transform.TryGetComponent(out TargetController targetController))
+        Debug.Log("fjdasdf");
+        if (collision.transform.TryGetComponent(out Rigidbody body) && collision.transform.TryGetComponent(out TargetController targetController))
         {
+            Debug.Log("hazaaah");
             rb.interpolation = RigidbodyInterpolation.None;
             transform.parent = collision.transform;
 
